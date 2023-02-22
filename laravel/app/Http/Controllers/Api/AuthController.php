@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,6 +41,9 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
                 'token' => $user->createToken('API TOKEN')->plainTextToken
             ]);
         } catch (\Throwable $th) {
@@ -67,11 +71,21 @@ class AuthController extends Controller
                 ], 401);
             }
 
+            if(!Auth::attempt($request->only(['email', 'password']))){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email & Password does not match with our record.',
+                ], 401);
+            }
+            
             $user = User::Where('email', $request->email)->first();
 
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
 

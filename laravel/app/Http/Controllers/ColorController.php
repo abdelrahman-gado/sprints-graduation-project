@@ -45,5 +45,4 @@ class ColorController extends Controller
             ], 500);
         }
     }
-
 }
