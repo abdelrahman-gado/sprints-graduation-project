@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
+    function getUsers(){
+        $users = User::all();
+        return response()->json(@$users);
+    }
+
     public function createUser(Request $request)
     {
 
@@ -20,7 +26,8 @@ class AuthController extends Controller
                 [
                     'name' => 'required',
                     'email' => 'required|email|unique:users,email',
-                    'password' => 'required'
+                    'password' => 'required',
+                    'phone'=>'required'
                 ]
             );
 
@@ -35,7 +42,8 @@ class AuthController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'phone'=>$request->phone
             ]);
 
             return response()->json([
@@ -44,6 +52,7 @@ class AuthController extends Controller
                 'user_id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'phone'=> $user->phone,
                 'token' => $user->createToken('API TOKEN')->plainTextToken
             ]);
         } catch (\Throwable $th) {
@@ -52,6 +61,16 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    function updateUsers(Request $request,$id){
+        $user = User::find($id);
+        if(!$user){
+            return response()->json('no such user !');
+        }
+        $user->fill($request->all());
+        $user->save();
+        return response()->json("successfully updated");
     }
 
 
