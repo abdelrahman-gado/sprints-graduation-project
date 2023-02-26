@@ -39,8 +39,19 @@ class UserContoller extends Controller
         }
     }
 
-    public function destory() {
-        
+    function getUsers(){
+        $users = User::all();
+        return response()->json(@$users);
+    }
+
+    function updateUsers(Request $request,$id){
+        $user = User::find($id);
+        if(!$user){
+            return response()->json('no such user !');
+        }
+        $user->fill($request->all());
+        $user->save();
+        return response()->json("successfully updated");
     }
 
 }

@@ -59,6 +59,20 @@ Route::middleware('auth:sanctum')->delete('/reviews/{id}', [ReviewController::cl
 
 // users
 Route::get('/users/{id}/reviews', [UserContoller::class, 'getReviewsByUserId']);
+Route::post('/users/update/{id}', [UserController::class, 'updateUsers']);
+Route::get('/users', [UserContoller::class, 'getUsers']);
+
+// get add update delete details
+Route::get('/get/details',[OrderDetailsController::class, 'getOrderDetails']);
+Route::post('/add/details',[OrderDetailsController::class, 'create']);
+Route::post('/update/details/{id}',[OrderDetailsController::class, 'update']);
+Route::delete('/delete/details/{id}',[OrderDetailsController::class, 'delete']);
+
+// get add update delete orders
+Route::get('/get/orders/{order_id}',[OrdersController::class, 'getOrders']);
+Route::post('/add/orders',[OrdersController::class, 'create']);
+Route::post('/update/orders/{id}',[OrdersController::class, 'update']);
+Route::delete('/delete/orders/{id}',[OrderDetailsController::class, 'delete']);
 
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
