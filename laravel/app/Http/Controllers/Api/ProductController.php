@@ -114,7 +114,7 @@ class ProductController extends Controller
                 ], 404);
             }
 
-            $image_path = $request->file('image')->store('image', 'public');
+            $image_path = url('/storage/'. $request->file('image')->store('image', 'public'));
             $product = Product::create([
                 'name' => $request->name,
                 'image' => $image_path,
@@ -187,7 +187,7 @@ class ProductController extends Controller
             $product->fill($request->post());
 
             if ($request->file('image')) {
-                $image_path = $request->file('image')->store('image', 'public');
+                $image_path = url('/storage/'. $request->file('image')->store('image', 'public'));;
                 $product['image'] = $image_path;
             }
 
