@@ -35,7 +35,7 @@ Route::get('/colors', [ColorController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::get('/categories/{id}/products', [CategoryController::class, 'getProductsByCategoryId']);
-Route::middleware('auth:sanctum')->put('/categories/{id}', [CategoryController::class, 'update']);
+Route::middleware('auth:sanctum')->post('/categories/{id}', [CategoryController::class, 'update']);
 Route::middleware('auth:sanctum')->post('/categories', [CategoryController::class, 'store']);
 Route::middleware('auth:sanctum')->delete('/categories/{id}', [CategoryController::class, 'destory']);
 
@@ -45,7 +45,7 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/{id}/reviews', [ProductController::class, 'getReviewsByProductId']);
 Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
-Route::middleware('auth:sanctum')->put('/products/{id}', [ProductController::class, 'update']);
+Route::middleware('auth:sanctum')->post('/products/{id}', [ProductController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::class, 'destory']);
 
 
@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::
 Route::get('/reviews', [ReviewController::class, 'index']);
 Route::get('/reviews/{id}', [ReviewController::class, 'show']);
 Route::middleware('auth:sanctum')->post('/reviews', [ReviewController::class, 'store']);
-Route::middleware('auth:sanctum')->put('/reviews/{id}', [ReviewController::class, 'update']);
+Route::middleware('auth:sanctum')->post('/reviews/{id}', [ReviewController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('/reviews/{id}', [ReviewController::class, 'destory']);
 
 

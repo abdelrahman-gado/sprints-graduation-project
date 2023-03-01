@@ -70,7 +70,7 @@ class CategoryController extends Controller
         try {
 
             $validateCategory = Validator::make($request->all(), [
-                'name' => "required|alpha_num",
+                'name' => "required",
                 'image' => "required|image|mimes:jpj,png,jpeg,gif,svg|max:2048"
             ]);
 
@@ -82,7 +82,7 @@ class CategoryController extends Controller
                 ], 404);
             }
 
-            $image_path = $request->file('image')->store('image', 'public');
+            $image_path = url('/storage/'. $request->file('image')->store('image', 'public'));
             $category = Category::create([
                 'name' => $request->name,
                 'image' => $image_path
@@ -105,7 +105,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id) {
         try {
             $validateCategory = Validator::make($request->all(), [
-                'name' => "required|alpha_num",
+                'name' => "required",
                 'image' => "image|mimes:jpj,png,jpeg,gif,svg|max:2048"
             ]);
 
@@ -129,7 +129,7 @@ class CategoryController extends Controller
             $category['name'] = $request->name;
 
             if ($request->file('image')) {
-                $image_path = $request->file('image')->store('image', 'public');
+                $image_path = url('/storage/'. $request->file('image')->store('image', 'public'));
                 $category['image'] = $image_path;
             }
 
