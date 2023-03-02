@@ -11,8 +11,15 @@ class ColorController extends Controller
 {
 
     public function index() {
-        $colors = Color::all();
-        return response()->json($colors);
+        try {
+            $colors = Color::all();
+            return response()->json($colors);
+        } catch(\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function store(Request $request) {
