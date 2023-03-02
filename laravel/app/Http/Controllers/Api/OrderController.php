@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         try {
             $orders = Order::with('user', 'orderDetails')->paginate(9);
             return response()->json($orders, 200);
-        } catch(\Throwable $th) {
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -23,9 +24,10 @@ class OrderController extends Controller
     }
 
 
-    public function show($id) {
+    public function show($id)
+    {
         try {
-            
+
             $order = Order::with('user', 'orderDetails')->find($id);
 
             if (!$order) {
@@ -37,7 +39,7 @@ class OrderController extends Controller
 
             return response()->json($order, 200);
 
-        } catch(\Throwable $th) {
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -45,7 +47,8 @@ class OrderController extends Controller
         }
     }
 
-    public function getOrderDetailsByOrderId($id) {
+    public function getOrderDetailsByOrderId($id)
+    {
         try {
 
             $order = Order::find($id);
@@ -61,7 +64,7 @@ class OrderController extends Controller
 
             return response()->json($orderDetails, 200);
 
-        } catch(\Throwable $th) {
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -70,7 +73,8 @@ class OrderController extends Controller
     }
 
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         try {
 
             $validateOrder = Validator::make($request->all(), [
@@ -101,8 +105,8 @@ class OrderController extends Controller
             ]);
 
             $orderDetails = $request->order_details;
-            foreach($orderDetails as $orderDetail) {
-
+            
+            foreach ($orderDetails as $orderDetail) {
                 $orderItem = Order_Detail::create([
                     "order_id" => $order->id,
                     "product_id" => $orderDetail["product_id"],
@@ -116,7 +120,7 @@ class OrderController extends Controller
                 "status" => true,
                 "message" => "The order is submitted successfully"
             ], 200);
-            
+
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -126,7 +130,8 @@ class OrderController extends Controller
     }
 
 
-    public function destory($id) {
+    public function destory($id)
+    {
         try {
 
             $order = Order::find($id);
