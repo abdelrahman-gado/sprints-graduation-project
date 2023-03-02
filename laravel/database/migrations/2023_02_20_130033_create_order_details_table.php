@@ -16,9 +16,9 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
-            $table->float('price', 8, 2);
+            $table->float('price', 10, 2);
             $table->integer('quantity');
-            $table->float('subTotalPrice', 8, 2);
+            $table->float('subTotalPrice', 10, 2);
 
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('product_id')->references('id')->on('products')->restrictOnDelete()->restrictOnUpdate();
