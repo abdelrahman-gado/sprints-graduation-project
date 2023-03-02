@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
-            $table->float('shipping_price', 4, 2);
-            $table->float('total_price', 4, 2);
+            $table->float('shipping_price', 10, 2);
+            $table->float('total_price', 10, 2);
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->restrictOnUpdate();
         });
