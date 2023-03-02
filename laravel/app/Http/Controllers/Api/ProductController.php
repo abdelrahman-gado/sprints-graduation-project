@@ -48,11 +48,9 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-
             $product = Product::with('category', 'color', 'reviews')
-                                ->find($id)
-                                ->withCount('reviews')
-                                ->withAvg('reviews', 'rating')->get();
+                ->withCount('reviews')
+                ->withAvg('reviews', 'rating')->find($id);
 
             if (!$product) {
                 return response()->json([
