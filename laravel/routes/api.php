@@ -3,9 +3,10 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ColorController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReviewController;
-use App\Http\Controllers\Api\UserContoller;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,30 +24,27 @@ use Illuminate\Support\Facades\Route;
 // auth user
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
+Route::middleware(['auth:sanctum'])->post('/auth/logout', [AuthController::class, 'logout']);
 
+// current authenicated user
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return response()->json($request->user());
+});
 
 // colors
-Route::middleware('auth:sanctum')->post('/colors', [ColorController::class, 'store']);
-Route::middleware('auth:sanctum')->delete('/colors/{id}', [ColorController::class, 'destory']);
 Route::get('/colors', [ColorController::class, 'index']);
-
 
 // categories
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
 Route::get('/categories/{id}/products', [CategoryController::class, 'getProductsByCategoryId']);
-Route::middleware('auth:sanctum')->put('/categories/{id}', [CategoryController::class, 'update']);
-Route::middleware('auth:sanctum')->post('/categories', [CategoryController::class, 'store']);
-Route::middleware('auth:sanctum')->delete('/categories/{id}', [CategoryController::class, 'destory']);
 
 
 // products
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/new-arrivals', [ProductController::class, 'getNewArrivalProducts']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/{id}/reviews', [ProductController::class, 'getReviewsByProductId']);
-Route::middleware('auth:sanctum')->post('/products', [ProductController::class, 'store']);
-Route::middleware('auth:sanctum')->put('/products/{id}', [ProductController::class, 'update']);
-Route::middleware('auth:sanctum')->delete('/products/{id}', [ProductController::class, 'destory']);
 
 
 // reviews
@@ -58,9 +56,41 @@ Route::middleware('auth:sanctum')->delete('/reviews/{id}', [ReviewController::cl
 
 
 // users
-Route::get('/users/{id}/reviews', [UserContoller::class, 'getReviewsByUserId']);
+Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);
+Route::middleware(['auth:sanctum'])->get('/users/{id}/orders', [UserController::class, 'getOrdersByUserId']);
+Route::middleware('auth:sanctum')->get('/users/{id}/reviews', [UserController::class, 'getReviewsByUserId']);
+Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'update']);
+Route::middleware(['auth:sanctum'])->delete('/users/{id}', [UserController::class, 'destory']);
 
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+// orders
+Route::middleware(['auth:sanctum'])->get('/orders/{id}/order-details', [OrderController::class, 'getOrderDetailsByOrderId']);
+Route::middleware('auth:sanctum')->post('/orders', [OrderController::class, 'store']);
+
+
+
+// admin routes
+Route::middleware(['auth:sanctum', 'can:is_admin'])->prefix('admin')->group(function () {
+
+    // colors
+    Route::post('/colors', [ColorController::class, 'store']);
+    Route::delete('/colors/{id}', [ColorController::class, 'destory']);
+
+    // categories
+    Route::put('/categories/{id}', [CategoryController::class, 'update']);
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::delete('/categories/{id}', [CategoryController::class, 'destory']);
+
+    // products
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'destory']);
+
+    // users
+    Route::get('/users/{id}', [UserController::class, 'show']);
+
+    //orders
+    Route::delete('/orders/{id}', [OrderController::class, 'destory']);
+    Route::get('/orders/{id}', [OrderController::class, 'show']);
+    Route::get('/orders', [OrderController::class, 'index']);
 });
