@@ -14,7 +14,8 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::with('category', 'color', 'reviews')->paginate(9);
+            $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
+                                    ->withAvg('reviews', 'rating')->paginate(9);
             return response()->json($products, 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -28,6 +29,8 @@ class ProductController extends Controller
     {
         try {
             $newArrivalProducts = Product::with('category', 'color', 'reviews')
+                                ->withCount('reviews')
+                                ->withAvg('reviews', 'rating')
                                 ->orderBy('created_at', 'desc')
                                 ->orderBy('updated_at', 'desc')
                                 ->limit(6)
@@ -46,7 +49,10 @@ class ProductController extends Controller
     {
         try {
 
-            $product = Product::find($id);
+            $product = Product::with('category', 'color', 'reviews')
+                                ->find($id)
+                                ->withCount('reviews')
+                                ->withAvg('reviews', 'rating')->get();
 
             if (!$product) {
                 return response()->json([
@@ -55,26 +61,7 @@ class ProductController extends Controller
                 ], 404);
             }
 
-            return response()->json([
-                'id' => $product->id,
-                'name' => $product->name,
-                'image' => $product->image,
-                'price' => $product->price,
-                'description' => $product->description,
-                'discount' => $product->discount,
-                'category' => [
-                    'id' => $product->category->id,
-                    'name' => $product->category->name,
-                    'image' => $product->category->image,
-                ],
-                'color' => [
-                    'id' => $product->color->id,
-                    'name' => $product->color->name
-                ],
-                'review' => $product->reviews,
-                'created_at' => $product->created_at,
-                'updated_at' => $product->updated_at
-            ], 200);
+            return response()->json($product, 200);
 
         } catch (\Throwable $th) {
             return response()->json([
