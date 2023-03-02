@@ -96,4 +96,28 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function logout(Request $request) {
+        try {
+            if (!$request->user()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Your are not authenicated to logout',
+                ], 401);
+            }
+
+            $request->user()->tokens()->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'you logged out successfully'
+            ], 200);
+
+        } catch(\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }
