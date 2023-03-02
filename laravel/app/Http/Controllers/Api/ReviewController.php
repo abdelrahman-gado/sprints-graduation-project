@@ -11,7 +11,7 @@ class ReviewController extends Controller
 {
     public function index() {
         try {
-            $reviews = Review::with('user', 'product')->get();
+            $reviews = Review::with('user', 'product')->paginate(9);
             return response()->json($reviews);
         } catch(\Throwable $th) {
             return response()->json([
@@ -123,7 +123,7 @@ class ReviewController extends Controller
     public function destory($id) {
         try {
 
-            $review = review::with('user', 'product')->find($id);
+            $review = Review::with('user', 'product')->find($id);
 
             if (!$review) {
                 return response()->json([
