@@ -14,8 +14,26 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::with('category', 'color', 'reviews')->get();
-            return response()->json($products);
+            $products = Product::with('category', 'color', 'reviews')->paginate(9);
+            return response()->json($products, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getNewArrivalProducts()
+    {
+        try {
+            $newArrivalProducts = Product::with('category', 'color', 'reviews')
+                                ->orderBy('created_at', 'desc')
+                                ->orderBy('updated_at', 'desc')
+                                ->limit(6)
+                                ->get();
+                                
+            return response()->json($newArrivalProducts, 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -114,10 +132,11 @@ class ProductController extends Controller
                 ], 404);
             }
 
-            $image_path = $request->file('image')->store('image', 'public');
+            // store the full url of the image in the server in $image_path
+            $image_url = url('/storage/' . $request->file('image')->store('image', 'public'));
             $product = Product::create([
                 'name' => $request->name,
-                'image' => $image_path,
+                'image' => $image_url,
                 'price' => $request->price,
                 'description' => $request->description,
                 'discount' => $request->discount,
@@ -187,8 +206,8 @@ class ProductController extends Controller
             $product->fill($request->post());
 
             if ($request->file('image')) {
-                $image_path = $request->file('image')->store('image', 'public');
-                $product['image'] = $image_path;
+                $image_url = url('/storage/' . $request->file('image')->store('image', 'public'));
+                $product['image'] = $image_url;
             }
 
             $product->save();
