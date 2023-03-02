@@ -60,7 +60,9 @@ class CategoryController extends Controller
                 ], 404);
             }
 
-            $products = Product::with('category', 'color')->where('category_id', $id)->get();
+            $products = Product::with('category', 'color', 'reviews')
+                    ->withCount('reviews')
+                    ->withAvg('reviews', 'rating')->where('category_id', $id)->get();
 
             return response()->json($products, 200);
 
