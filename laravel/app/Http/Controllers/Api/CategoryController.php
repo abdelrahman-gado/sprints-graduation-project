@@ -77,7 +77,7 @@ class CategoryController extends Controller
         try {
 
             $validateCategory = Validator::make($request->all(), [
-                'name' => "required|alpha_num",
+                'name' => "required|string",
                 'image' => "required|image|mimes:jpj,png,jpeg,gif,svg|max:2048"
             ]);
 
@@ -113,7 +113,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id) {
         try {
             $validateCategory = Validator::make($request->all(), [
-                'name' => "required|alpha_num",
+                'name' => "required|string",
                 'image' => "image|mimes:jpj,png,jpeg,gif,svg|max:2048"
             ]);
 

@@ -32,7 +32,7 @@ class ProductController extends Controller
                                 ->orderBy('updated_at', 'desc')
                                 ->limit(6)
                                 ->get();
-                                
+
             return response()->json($newArrivalProducts, 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -118,7 +118,7 @@ class ProductController extends Controller
                 'name' => 'required',
                 'image' => 'required|image|mimes:jpj,png,jpeg,gif,svg|max:2048',
                 'price' => 'required|numeric',
-                'description' => 'required|String',
+                'description' => 'required|string',
                 'discount' => 'required|numeric',
                 'category_id' => 'required|numeric',
                 'color_id' => 'required|numeric'
@@ -177,10 +177,10 @@ class ProductController extends Controller
     {
         try {
             $validateProduct = Validator::make($request->all(), [
-                'name' => 'required',
+                'name' => 'required|string',
                 'image' => 'image|mimes:jpj,png,jpeg,gif,svg|max:2048',
                 'price' => 'required|numeric',
-                'description' => 'required|String',
+                'description' => 'required|string',
                 'discount' => 'required|numeric',
                 'category_id' => 'required|numeric',
                 'color_id' => 'required|numeric'

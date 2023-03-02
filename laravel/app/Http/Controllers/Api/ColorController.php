@@ -26,7 +26,7 @@ class ColorController extends Controller
         try {
 
             $validateColor = Validator::make($request->all(), [
-                'name' => "required|alpha_num"
+                'name' => "required|string"
             ]);
 
             if ($validateColor->fails()) {
