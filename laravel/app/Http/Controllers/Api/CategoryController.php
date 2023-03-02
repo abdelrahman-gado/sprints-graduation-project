@@ -11,8 +11,15 @@ use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
     public function index() {
-        $categories = Category::all();
-        return response()->json($categories);
+        try {
+            $categories = Category::paginate(9);
+            return response()->json($categories);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function show($id) {
@@ -82,10 +89,11 @@ class CategoryController extends Controller
                 ], 404);
             }
 
-            $image_path = $request->file('image')->store('image', 'public');
+            // store full url of the image in image_path ex: $image_path = 'http://localhost:8000/storage/image/23423.jpg'
+            $image_url = url('/storage/' . $request->file('image')->store('image', 'public'));
             $category = Category::create([
                 'name' => $request->name,
-                'image' => $image_path
+                'image' => $image_url
             ]);
 
             return response()->json([
@@ -129,8 +137,8 @@ class CategoryController extends Controller
             $category['name'] = $request->name;
 
             if ($request->file('image')) {
-                $image_path = $request->file('image')->store('image', 'public');
-                $category['image'] = $image_path;
+                $image_url =  url('/storage/' . $request->file('image')->store('image', 'public'));
+                $category['image'] = $image_url;
             }
 
             $category->save();
