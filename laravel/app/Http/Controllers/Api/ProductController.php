@@ -25,6 +25,34 @@ class ProductController extends Controller
         }
     }
 
+    public function getRecommended()
+    {
+        try {
+            $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
+                                    ->withAvg('reviews', 'rating')->paginate(12);
+            return response()->json($products, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function getTrending()
+    {
+        try {
+            $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
+                                    ->withAvg('reviews', 'rating')->paginate(5);
+            return response()->json($products, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
     public function getNewArrivalProducts()
     {
         try {
