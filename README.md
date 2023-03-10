@@ -81,5 +81,5 @@ This project is made possible by the sprint Team 2 in the Sprint's Fullstack Boo
 ### Contributors
 - [Abdelrahman Fayed](https://github.com/AR-Fayed) [ERD-Backend-Frontend]
 - [Abdelrahman Gado](https://github.com/abdelrahman-gado) [ERD-Backend-Simple Part in Frontend]
-- [AliaF99](https://github.com/AliaF99) (Frontend)
+- [AlyaAlnuaimi](https://github.com/AlyaAlnuaimi) (Frontend)
 - [Mohammed Tarek](https://github.com/MohamedTarekSkr) (ERD -Authenication part in frontend only)
