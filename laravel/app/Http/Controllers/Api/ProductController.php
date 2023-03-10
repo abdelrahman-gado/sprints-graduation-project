@@ -11,11 +11,26 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         try {
             $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
-                                    ->withAvg('reviews', 'rating')->paginate(9);
+                ->withAvg('reviews', 'rating');
+
+            if ($request->get('color')) {
+                $products = $products->whereIn('color_id', $request->get('color'));
+            }
+
+            if ($request->get('category')) {
+                $products = $products->whereIn('category_id', $request->get('category'));
+            }
+
+            if ($request->get('price')) {
+                $products = $products->where('price', '<=', (float) $request->get('price'));
+            }
+
+            $products = $products->paginate(9)->withQueryString();
+
             return response()->json($products, 200);
         } catch (\Throwable $th) {
             return response()->json([
