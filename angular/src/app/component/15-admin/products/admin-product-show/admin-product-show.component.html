@@ -1,0 +1,55 @@
+<nav style="margin-top: 20px; margin-bottom: 10px;">
+    <div class="container">
+      <span>
+        <a style="margin-right: 15px;" routerLink="/admin-categories">Categories</a>
+        <a style="margin-right: 15px;" routerLink="/admin-products">Products</a>
+        <a style="margin-right: 15px;" routerLink="/admin-users">Users</a>
+      </span>
+    </div>
+    <!-- End .container -->
+  </nav>
+  
+  
+
+<div class="container">
+    <div>
+        <div style="background-color: #f8f8f8; margin-bottom: 20px; margin-top: 20px;">
+            <label style="font-size: 18px; font-weight: 500; color: #3399ff; margin: 10px; margin-left: 30px;">
+            ID :
+            </label>
+            <i style="font-size: 16px; color: #333333; font-weight: 500; font-style: normal;">
+            {{ product.id }}
+            </i>
+        </div>
+        <div style="background-color: #f8f8f8; margin-bottom: 20px; margin-top: 20px;">
+            <label style="font-size: 18px; font-weight: 500; color: #3399ff; margin: 10px; margin-left: 30px;">
+            Category :
+            </label>
+            <i style="font-size: 18px; color: #333333; font-weight: 500; font-style: normal;">
+                {{ product.category.name }}
+            </i>
+        </div>
+        <div style="background-color: #f8f8f8; margin-bottom: 20px; margin-top: 20px;">
+            <label style="font-size: 18px; font-weight: 500; color: #3399ff; margin: 10px; margin-left: 30px;">
+            Name :
+            </label>
+            <i style="font-size: 18px; color: #333333; font-weight: 500; font-style: normal;">
+                {{ product.name }}
+            </i>
+        </div>
+        <div style="background-color: #f8f8f8; margin-bottom: 20px; margin-top: 20px;">
+            <label style="font-size: 18px; font-weight: 500; color: #3399ff; margin: 10px; margin-left: 30px;">
+            Price :
+            </label>
+            <i style="font-size: 18px; color: #333333; font-weight: 500; font-style: normal;">
+                {{ product.price }}
+            </i>
+        </div>
+        <div style="display: flex; align-items: center ;background-color: #f8f8f8; margin-bottom: 20px; margin-top: 20px;">
+            <label style="font-size: 18px; font-weight: 500; color: #3399ff; margin: 10px; margin-left: 30px;">
+            Image :
+            </label>
+            <img [src]="product.image" style="width: 100px; padding: 10px;" />
+        </div>
+    </div>
+</div>

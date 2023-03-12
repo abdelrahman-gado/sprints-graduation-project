@@ -1,0 +1,23 @@
+<div style="margin-top: 40px;" class="container for-you">
+    
+    <!-- Start Heading -->
+    <div class="heading heading-flex mb-3">
+        <div class="heading-left">
+            <h2 class="title">Recommendation For You</h2><!-- End .title -->
+        </div><!-- End .heading-left -->
+
+       <div class="heading-right">
+            <a RouterLink="shop" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>
+       </div><!-- End .heading-right -->
+    </div>
+    <!-- End Heading -->
+    
+    <!-- Start Products -->
+    <div class="products">
+        <div class="row justify-content-center">
+            <app-product [product]="p" *ngFor="let p of products" class="col-6 col-md-4 col-lg-2"></app-product>
+        </div> 
+    </div> 
+    <!-- End Products -->
+
+</div>

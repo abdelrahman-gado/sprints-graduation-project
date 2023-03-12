@@ -1,0 +1,43 @@
+<nav style="margin-top: 20px; margin-bottom: 10px;">
+  <div class="container">
+    <span>
+      <a style="margin-right: 15px;" routerLink="/admin-categories">Categories</a>
+      <a style="margin-right: 15px;" routerLink="/admin-products">Products</a>
+      <a style="margin-right: 15px;" routerLink="/admin-users">Users</a>
+    </span>
+  </div>
+  <!-- End .container -->
+</nav>
+
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered" style="margin-top: 20px;">
+          <thead>
+            <tr class="text-center">
+              <th style="color: black; font-weight: bold;">ID</th>
+              <th style="color: black; font-weight: bold;">Name</th>
+              <th style="color: black; font-weight: bold;">E-mail</th>
+              <th style="color: black; font-weight: bold;">Address</th>
+              <th style="color: black; font-weight: bold;">Phone</th>
+              <th style="color: black; font-weight: bold;" colspan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" style="color: black;" *ngFor="let u of users">
+              <td>{{u.id}}</td>
+              <td>{{u.name}}</td>
+              <td>{{u.email}}</td>
+              <td>{{u.address_info}}</td>
+              <td>{{u.phone}}</td>
+              <td><a style="color: white; font-weight: bold; border: 0; padding: 5px;" class="btn-primary" [routerLink]="['/admin-user-update',u.id]">update</a></td>
+              <td><button style="color: white; font-weight: bold; border: 0;" class="btn-danger" (click)="destroy(u.id)">X</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

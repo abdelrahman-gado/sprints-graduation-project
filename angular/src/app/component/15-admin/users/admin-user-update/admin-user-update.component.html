@@ -1,0 +1,43 @@
+<nav style="margin-top: 20px; margin-bottom: 10px;">
+    <div class="container">
+      <span>
+        <a style="margin-right: 15px;" routerLink="/admin-categories">Categories</a>
+        <a style="margin-right: 15px;" routerLink="/admin-products">Products</a>
+        <a style="margin-right: 15px;" routerLink="/admin-users">Users</a>
+      </span>
+    </div>
+    <!-- End .container -->
+  </nav>
+  
+  
+
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-12" style="margin-top: 20px;">
+            <h2 class="title mb-1" style="color: #3399ff;">{{user.name}}</h2><!-- End .title mb-2 -->
+            <p class="mb-2">Use the form below to update the address and phone only!.</p>
+
+            <form  enctype="multipart/form-data" (ngSubmit)="update()" action="#" class="contact-form mb-3">
+                <div class="row">
+                    
+                    <div class="col-sm-12">
+                        <label for="caddress_info" class="sr-only">Address</label>
+                        <input type="text" (change)="getAddress(address_info.value)" class="form-control" #address_info placeholder="Address *" required>
+                    </div><!-- End .col-sm-6 -->
+                    
+                    <div class="col-sm-12">
+                        <label for="cphone" class="sr-only">Phone</label>
+                        <input type="number" (change)="getPhone(phone.value)" class="form-control" #phone placeholder="Phone *" required>
+                    </div><!-- End .col-sm-6 -->
+
+                </div><!-- End .row -->
+
+                
+                <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                    <span>SUBMIT</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

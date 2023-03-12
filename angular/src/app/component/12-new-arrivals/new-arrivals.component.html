@@ -1,0 +1,23 @@
+<div class="container new-arrivals">
+  <!-- Start new arrivals heading -->
+  <div class="heading heading-flex mb-3">
+    <div class="heading-left">
+      <h2 style="margin-top: 50px" class="title">New Arrivals</h2>
+      <!-- End .title -->
+    </div>
+  </div>
+  <!-- End new arrivals heading -->
+
+  <!-- Start products -->
+  <div class="products">
+    <div class="row">
+      <app-new-product
+        style="padding-right: 20px"
+        [product]="p"
+        *ngFor="let p of products"
+        class="col-6 col-md-3 col-lg-2"
+      ></app-new-product>
+    </div>
+  </div>
+  <!-- End products -->
+</div>
