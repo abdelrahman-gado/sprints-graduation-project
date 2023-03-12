@@ -67,6 +67,47 @@ class ProductController extends Controller
             ], 500);
         }
     }
+    public function getAll()
+    {
+        try {
+            $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
+                                    ->withAvg('reviews', 'rating')->get();
+            return response()->json($products, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getRecommended()
+    {
+        try {
+            $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
+                                    ->withAvg('reviews', 'rating')->paginate(12);
+            return response()->json($products, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function getTrending()
+    {
+        try {
+            $products = Product::with('category', 'color', 'reviews')->withCount('reviews')
+                                    ->withAvg('reviews', 'rating')->paginate(5);
+            return response()->json($products, 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 
     public function getNewArrivalProducts()
     {
