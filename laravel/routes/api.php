@@ -46,6 +46,8 @@ Route::get('/products/all', [ProductController::class, 'getAll']);
 Route::get('/products/recommended', [ProductController::class, 'getRecommended']);
 Route::get('/products/trending', [ProductController::class, 'getTrending']);
 Route::get('/products/new-arrivals', [ProductController::class, 'getNewArrivalProducts']);
+Route::get('/products/recommended', [ProductController::class, 'getRecommended']);
+Route::get('/products/trending', [ProductController::class, 'getTrending']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/{id}/reviews', [ProductController::class, 'getReviewsByProductId']);
 
@@ -73,7 +75,7 @@ Route::middleware('auth:sanctum')->post('/orders', [OrderController::class, 'sto
 
 
 // admin routes
-//middleware(['auth:sanctum', 'can:is_admin'])->
+//Route::middleware(['auth:sanctum', 'can:is_admin'])->
 Route::prefix('admin')->group(function () {
 
     // colors
