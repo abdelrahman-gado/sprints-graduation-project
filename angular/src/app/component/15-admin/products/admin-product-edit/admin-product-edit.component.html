@@ -1,0 +1,61 @@
+<nav style="margin-top: 20px; margin-bottom: 10px;">
+    <div class="container">
+      <span>
+        <a style="margin-right: 15px;" routerLink="/admin-categories">Categories</a>
+        <a style="margin-right: 15px;" routerLink="/admin-products">Products</a>
+        <a style="margin-right: 15px;" routerLink="/admin-users">Users</a>
+      </span>
+    </div>
+    <!-- End .container -->
+</nav>
+  
+  
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12" style="margin-top: 20px;">
+            <h2 class="title mb-1" style="color: #3399ff;">Product {{product.name}}</h2><!-- End .title mb-2 -->
+            <p class="mb-2">Use the form below to update the product information.</p>
+
+            <form  enctype="multipart/form-data" (ngSubmit)="update()" action="#" class="contact-form mb-3">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="cname" class="sr-only">Name</label>
+                        <input type="text" (change)="getName(name.value)" class="form-control" #name placeholder="Name *" required>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-12">
+                        <label for="cimage" class="sr-only">Image</label>
+                        <input type="file" (change)="getImage($event)" class="form-control" #image style="margin-bottom: 20px;" placeholder="Image *" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-12">
+                        <label for="cprice" class="sr-only">Price</label>
+                        <input type="number" (change)="getPrice(price.value)" class="form-control" #price style="margin-bottom: 20px;" placeholder="price *" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-12">
+                        <label for="cdescription" class="sr-only">Description</label>
+                        <input type="text" (change)="getDescription(description.value)" class="form-control" #description style="margin-bottom: 20px;" placeholder="Description *" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-12">
+                        <label for="cdiscount" class="sr-only">Discount</label>
+                        <input type="number" (change)="getDiscount(discount.value)" class="form-control" #discount style="margin-bottom: 20px;" placeholder="Discount *" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-12">
+                        <label for="ccategory_id" class="sr-only">Category</label>
+                        <input type="number" (change)="getCategory(category_id.value)" class="form-control" #category_id style="margin-bottom: 20px;" placeholder="Category *" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-12">
+                        <label for="ccolor_id" class="sr-only">Color</label>
+                        <input type="number" (change)="getColor(color_id.value)" class="form-control" #color_id style="margin-bottom: 20px;" placeholder="Color *" required>
+                        
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                
+                <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                    <span>SUBMIT</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

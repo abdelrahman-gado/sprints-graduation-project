@@ -1,0 +1,47 @@
+<table class="table table-cart table-mobile">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let line of cartLines; let i = index">
+            <td class="product-col">
+                <div class="product">
+                    <figure class="product-media">
+                        <a href="">
+                            <img [src]="line.product.image" alt="Product image">
+                        </a>
+                    </figure>
+
+                    <h3 class="product-title">
+                        <a href="#">{{line.product.name}}</a>
+                    </h3><!-- End .product-title -->
+                </div><!-- End .product -->
+            </td>
+            <td class="price-col">{{line.price | currency }}</td>
+            <td class="quantity-col">
+
+                
+                <div class="cart-product-quantity text-center">
+
+
+                    <button  style="border:0;" (click)="incQuantity(i)" >+</button>             
+                    
+                    <input style="border-color: transparent; text-align: center;width: 40px;" type="input-group" id="qty" [value]="line.quantity" min="1" max="10" step="1" data-decimals="0" required>
+
+                    <button style="border:0;" (click)="decQuantity(i)">-</button>
+                    
+                
+                </div><!-- End .cart-product-quantity -->
+            </td>
+            <td class="total-col">{{line.quantity * line.price | currency}}</td>
+            <td class="remove-col"><button class="btn-remove" (click)="remove(i)"><i class="icon-close"></i></button></td>
+        </tr>
+    </tbody>
+</table><!-- End .table table-wishlist -->

@@ -1,0 +1,49 @@
+<nav style="margin-top: 20px; margin-bottom: 10px;">
+  <div class="container">
+    <span>
+      <a style="margin-right: 15px;" routerLink="/admin-categories">Categories</a>
+      <a style="margin-right: 15px;" routerLink="/admin-products">Products</a>
+      <a style="margin-right: 15px;" routerLink="/admin-users">Users</a>
+    </span>
+  </div>
+  <!-- End .container -->
+</nav>
+
+
+
+<div class="container">
+  <div style="margin-top: 20px; margin-bottom: 10px;">
+    <a style="background-color: white;color: #3399ff; font-weight: bold; border: solid 1px; border-color: #3399ff; padding: 10px;" class="btn-primary" routerLink="/admin-product-create">Create Product</a>
+  </div>
+
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-bordered" >
+          <thead>
+            <tr class="text-center" style="background-color: #f8f8f8;">
+              <th style="color: black; font-weight: 600;">ID</th>
+              <th style="color: black; font-weight: 600;">Name</th>
+              <th style="color: black; font-weight: 600;">Category</th>
+              <th style="color: black; font-weight: 600;">Image</th>
+              <th style="color: black; font-weight: 600;" colspan="3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" style="color: black; background-color: #f8f8f8;" *ngFor="let p of products">
+              <td style="font-weight: 600;">{{p.id}}</td>
+              <td>{{p.name}}</td>
+              <td>{{p.category.name}}</td>
+              <td align="center"><img [src]="p.image" width="100px"/></td>
+              <td><a style="color: white; font-weight: bold; border: 0; padding: 5px;" class="btn-primary" [routerLink]="['/admin-product-edit',p.id]" >Edit</a></td>
+              <td><a style="color: white; font-weight: bold; border: 0; padding: 5px;" class="btn-primary" [routerLink]="['/admin-product-show',p.id]">Show</a></td>
+              <td><button style="color: white; font-weight: bold; border: 0;" class="btn-danger" (click)="destroy(p.id)">X</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <span class="text-center" *ngFor="let link of links">
+          <button class="btn-neutral" style="border: 0; margin-bottom: 20px; width: 30px;">{{link.label}}</button>
+        </span>
+      </div>
+    </div>
+  </div>
+  

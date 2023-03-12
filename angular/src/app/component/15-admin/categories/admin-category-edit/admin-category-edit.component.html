@@ -1,0 +1,40 @@
+<nav style="margin-top: 20px; margin-bottom: 10px;">
+    <div class="container">
+      <span>
+        <a style="margin-right: 15px;" routerLink="/admin-categories">Categories</a>
+        <a style="margin-right: 15px;" routerLink="/admin-products">Products</a>
+        <a style="margin-right: 15px;" routerLink="/admin-users">Users</a>
+      </span>
+    </div>
+    <!-- End .container -->
+  </nav>
+  
+  
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12" style="margin-top: 20px;">
+            <h2 class="title mb-1" style="color: #3399ff;">Category {{category.name}}</h2><!-- End .title mb-2 -->
+            <p class="mb-2">Use the form below to update the category information.</p>
+
+            <form  enctype="multipart/form-data" (ngSubmit)="update()" action="#" class="contact-form mb-3">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="cname" class="sr-only">Name</label>
+                        <input type="text" (change)="getName(name.value)" class="form-control" #name placeholder="Name *" required>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-12">
+                        <label for="cemail" class="sr-only">image</label>
+                        <input type="file" (change)="getImage($event)" class="form-control" #image style="margin-bottom: 20px;" placeholder="image *" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                
+                <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+                    <span>SUBMIT</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

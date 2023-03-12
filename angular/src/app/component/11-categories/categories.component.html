@@ -1,0 +1,12 @@
+<!-- Start popular categories -->
+<div class="container">
+  <h2 class="title text-center mb-4">Explore Popular Categories</h2>
+  <!-- End .title text-center -->
+
+  <div class="cat-blocks-container">
+    <div class="row">
+        <app-category [category]="c" *ngFor="let c of categories" class="col-6 col-sm-4 col-lg-2"></app-category>
+    </div>
+  </div>
+</div>
+<!-- End popular categories -->
