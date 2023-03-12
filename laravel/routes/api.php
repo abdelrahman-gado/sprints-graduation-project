@@ -42,6 +42,9 @@ Route::get('/categories/{id}/products', [CategoryController::class, 'getProducts
 
 // products
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/all', [ProductController::class, 'getAll']);
+Route::get('/products/recommended', [ProductController::class, 'getRecommended']);
+Route::get('/products/trending', [ProductController::class, 'getTrending']);
 Route::get('/products/new-arrivals', [ProductController::class, 'getNewArrivalProducts']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/{id}/reviews', [ProductController::class, 'getReviewsByProductId']);
@@ -56,11 +59,11 @@ Route::middleware('auth:sanctum')->delete('/reviews/{id}', [ReviewController::cl
 
 
 // users
-Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);
+Route::get('/users', [UserController::class, 'index']);
 Route::middleware(['auth:sanctum'])->get('/users/{id}/orders', [UserController::class, 'getOrdersByUserId']);
 Route::middleware('auth:sanctum')->get('/users/{id}/reviews', [UserController::class, 'getReviewsByUserId']);
-Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'update']);
-Route::middleware(['auth:sanctum'])->delete('/users/{id}', [UserController::class, 'destory']);
+Route::put('/users/{id}', [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'destory']);
 
 
 // orders
@@ -70,7 +73,8 @@ Route::middleware('auth:sanctum')->post('/orders', [OrderController::class, 'sto
 
 
 // admin routes
-Route::middleware(['auth:sanctum', 'can:is_admin'])->prefix('admin')->group(function () {
+//middleware(['auth:sanctum', 'can:is_admin'])->
+Route::prefix('admin')->group(function () {
 
     // colors
     Route::post('/colors', [ColorController::class, 'store']);
